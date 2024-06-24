@@ -1,4 +1,5 @@
-import { Box, Flex, HStack, Link } from "@chakra-ui/react";
+import { Box, Flex, HStack, Link, Button } from "@chakra-ui/react";
+import { useSupabaseAuth } from "../integrations/supabase/auth.jsx";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
