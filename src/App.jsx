@@ -5,7 +5,7 @@ import TaskManagement from "./pages/TaskManagement.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import ProjectManagement from "./pages/ProjectManagement.jsx";
 import Navbar from "./components/Navbar.jsx";
-import Login from "./pages/Login.jsx";
+import Login from "./components/pages/Login.jsx";
 import GroupManagement from "./pages/GroupManagement.jsx";
 import Register from "./pages/Register.jsx";
 import Profile from "./pages/Profile.jsx";
