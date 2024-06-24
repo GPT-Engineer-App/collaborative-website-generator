@@ -1,7 +1,5 @@
 import { Box, Heading, Text, VStack, HStack, Button, Flex, IconButton, Select, Input, Textarea, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { FaCog, FaBell, FaUserCircle } from "react-icons/fa";
-
-import { FaCog, FaBell, FaUserCircle } from "react-icons/fa";
 import { useTasks, useAddTask, useUpdateTask, useDeleteTask, useTaskTags, useAddTaskTag, useComments, useAddComment } from "../integrations/supabase/index.js";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -55,6 +53,7 @@ const TaskManagement = () => {
   if (tasksError || taskTagsError || commentsError) {
     return <div>Error loading data</div>;
   }
+
   return (
     <Box p={4}>
       <Flex justify="space-between" align="center" mb={4}>
