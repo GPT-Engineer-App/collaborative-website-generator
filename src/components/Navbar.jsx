@@ -31,6 +31,9 @@ const Navbar = () => {
           <NavLink to="/productivity">
             <Link color="white">Productivity</Link>
           </NavLink>
+          <NavLink to="/session-management">
+            <Link color="white">Session Management</Link>
+          </NavLink>
         </HStack>
       </Flex>
     </Box>
