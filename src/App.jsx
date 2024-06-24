@@ -5,8 +5,7 @@ import TaskManagement from "./pages/TaskManagement.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import ProjectManagement from "./pages/ProjectManagement.jsx";
 import Navbar from "./components/Navbar.jsx";
-import Login from "./components/pages/Login.jsx";
-
+import Login from "./pages/Login.jsx";
 import Register from "./pages/Register.jsx";
 import Profile from "./pages/Profile.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
@@ -27,7 +26,6 @@ function App() {
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/register" element={<Register />} />
         <Route exact path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        
         <Route exact path="/file-management" element={<FileManagement />} />
         <Route exact path="/productivity" element={<Productivity />} />
         <Route exact path="/session-management" element={<ProtectedRoute><SessionManagement /></ProtectedRoute>} />
