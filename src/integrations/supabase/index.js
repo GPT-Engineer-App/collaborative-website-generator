@@ -22,101 +22,156 @@ const fromSupabase = async (query) => {
 
 /* supabase integration types
 
-### foos
+### tasks
+
+| name        | type | format | required |
+|-------------|------|--------|----------|
+| id          | int8 | number | true     |
+| title       | text | string | true     |
+| description | text | string | false    |
+| category    | text | string | false    |
+| priority    | text | string | false    |
+| status      | text | string | false    |
+| due_date    | date | string | false    |
+
+### task_tags
 
 | name    | type | format | required |
 |---------|------|--------|----------|
 | id      | int8 | number | true     |
-| title   | text | string | true     |
-| date    | date | string | true     |
+| task_id | int8 | number | true     |  // foreign key to tasks
+| tag     | text | string | true     |
 
-### bars
+### comments
 
 | name    | type | format | required |
 |---------|------|--------|----------|
 | id      | int8 | number | true     |
-| foo_id  | int8 | number | true     |  // foreign key to foos
+| task_id | int8 | number | true     |  // foreign key to tasks
+| content | text | string | true     |
+| created_at | timestamp | string | true |
 
 */
 
-// Hooks for foos table
-export const useFoos = () => useQuery({
-    queryKey: ['foos'],
-    queryFn: () => fromSupabase(supabase.from('foos').select('*')),
+// Hooks for tasks table
+export const useTasks = () => useQuery({
+    queryKey: ['tasks'],
+    queryFn: () => fromSupabase(supabase.from('tasks').select('*')),
 });
 
-export const useFoo = (id) => useQuery({
-    queryKey: ['foos', id],
-    queryFn: () => fromSupabase(supabase.from('foos').select('*').eq('id', id).single()),
+export const useTask = (id) => useQuery({
+    queryKey: ['tasks', id],
+    queryFn: () => fromSupabase(supabase.from('tasks').select('*').eq('id', id).single()),
 });
 
-export const useAddFoo = () => {
+export const useAddTask = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (newFoo) => fromSupabase(supabase.from('foos').insert([newFoo])),
+        mutationFn: (newTask) => fromSupabase(supabase.from('tasks').insert([newTask])),
         onSuccess: () => {
-            queryClient.invalidateQueries('foos');
+            queryClient.invalidateQueries('tasks');
         },
     });
 };
 
-export const useUpdateFoo = () => {
+export const useUpdateTask = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (updatedFoo) => fromSupabase(supabase.from('foos').update(updatedFoo).eq('id', updatedFoo.id)),
+        mutationFn: (updatedTask) => fromSupabase(supabase.from('tasks').update(updatedTask).eq('id', updatedTask.id)),
         onSuccess: () => {
-            queryClient.invalidateQueries('foos');
+            queryClient.invalidateQueries('tasks');
         },
     });
 };
 
-export const useDeleteFoo = () => {
+export const useDeleteTask = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (id) => fromSupabase(supabase.from('foos').delete().eq('id', id)),
+        mutationFn: (id) => fromSupabase(supabase.from('tasks').delete().eq('id', id)),
         onSuccess: () => {
-            queryClient.invalidateQueries('foos');
+            queryClient.invalidateQueries('tasks');
         },
     });
 };
 
-// Hooks for bars table
-export const useBars = () => useQuery({
-    queryKey: ['bars'],
-    queryFn: () => fromSupabase(supabase.from('bars').select('*')),
+// Hooks for task_tags table
+export const useTaskTags = () => useQuery({
+    queryKey: ['task_tags'],
+    queryFn: () => fromSupabase(supabase.from('task_tags').select('*')),
 });
 
-export const useBar = (id) => useQuery({
-    queryKey: ['bars', id],
-    queryFn: () => fromSupabase(supabase.from('bars').select('*').eq('id', id).single()),
+export const useTaskTag = (id) => useQuery({
+    queryKey: ['task_tags', id],
+    queryFn: () => fromSupabase(supabase.from('task_tags').select('*').eq('id', id).single()),
 });
 
-export const useAddBar = () => {
+export const useAddTaskTag = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (newBar) => fromSupabase(supabase.from('bars').insert([newBar])),
+        mutationFn: (newTaskTag) => fromSupabase(supabase.from('task_tags').insert([newTaskTag])),
         onSuccess: () => {
-            queryClient.invalidateQueries('bars');
+            queryClient.invalidateQueries('task_tags');
         },
     });
 };
 
-export const useUpdateBar = () => {
+export const useUpdateTaskTag = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (updatedBar) => fromSupabase(supabase.from('bars').update(updatedBar).eq('id', updatedBar.id)),
+        mutationFn: (updatedTaskTag) => fromSupabase(supabase.from('task_tags').update(updatedTaskTag).eq('id', updatedTaskTag.id)),
         onSuccess: () => {
-            queryClient.invalidateQueries('bars');
+            queryClient.invalidateQueries('task_tags');
         },
     });
 };
 
-export const useDeleteBar = () => {
+export const useDeleteTaskTag = () => {
     const queryClient = useQueryClient();
     return useMutation({
-        mutationFn: (id) => fromSupabase(supabase.from('bars').delete().eq('id', id)),
+        mutationFn: (id) => fromSupabase(supabase.from('task_tags').delete().eq('id', id)),
         onSuccess: () => {
-            queryClient.invalidateQueries('bars');
+            queryClient.invalidateQueries('task_tags');
+        },
+    });
+};
+
+// Hooks for comments table
+export const useComments = () => useQuery({
+    queryKey: ['comments'],
+    queryFn: () => fromSupabase(supabase.from('comments').select('*')),
+});
+
+export const useComment = (id) => useQuery({
+    queryKey: ['comments', id],
+    queryFn: () => fromSupabase(supabase.from('comments').select('*').eq('id', id).single()),
+});
+
+export const useAddComment = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newComment) => fromSupabase(supabase.from('comments').insert([newComment])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('comments');
+        },
+    });
+};
+
+export const useUpdateComment = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedComment) => fromSupabase(supabase.from('comments').update(updatedComment).eq('id', updatedComment.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('comments');
+        },
+    });
+};
+
+export const useDeleteComment = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('comments').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('comments');
         },
     });
 };
