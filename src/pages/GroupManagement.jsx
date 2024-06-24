@@ -1,10 +1,10 @@
-import { Box, Heading, Text, VStack, HStack, Button, Flex, IconButton, FormControl, FormLabel, Input, FormErrorMessage, Select, Textarea } from "@chakra-ui/react";
+import { Box, Heading, Text, VStack, HStack, Button, Flex, IconButton, FormControl, FormLabel, Input, FormErrorMessage, Select, Textarea, Spinner, Alert, AlertIcon } from "@chakra-ui/react";
 import { FaCog, FaBell, FaUserCircle } from "react-icons/fa";
 import { useGroups, useAddGroup, useUpdateGroup, useDeleteGroup, useGroupMembers, useAddGroupMember, useUpdateGroupMember, useDeleteGroupMember } from "../integrations/supabase/index.js";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 const groupSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
@@ -73,11 +73,16 @@ const GroupManagement = () => {
   };
 
   if (groupsLoading || groupMembersLoading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   if (groupsError || groupMembersError) {
-    return <div>Error loading data</div>;
+    return (
+      <Alert status="error">
+        <AlertIcon />
+        Error loading data
+      </Alert>
+    );
   }
 
   return (
