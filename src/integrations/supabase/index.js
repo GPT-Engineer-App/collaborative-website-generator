@@ -33,6 +33,7 @@ const fromSupabase = async (query) => {
 | priority    | text | string | false    |
 | status      | text | string | false    |
 | due_date    | date | string | false    |
+| project_id  | int8 | number | false    |  // foreign key to projects
 
 ### task_tags
 
@@ -50,6 +51,27 @@ const fromSupabase = async (query) => {
 | task_id | int8 | number | true     |  // foreign key to tasks
 | content | text | string | true     |
 | created_at | timestamp | string | true |
+
+### projects
+
+| name        | type | format | required |
+|-------------|------|--------|----------|
+| id          | int8 | number | true     |
+| name        | text | string | true     |
+| description | text | string | false    |
+| start_date  | date | string | false    |
+| end_date    | date | string | false    |
+| status      | text | string | false    |
+
+### milestones
+
+| name        | type | format | required |
+|-------------|------|--------|----------|
+| id          | int8 | number | true     |
+| project_id  | int8 | number | true     |  // foreign key to projects
+| name        | text | string | true     |
+| description | text | string | false    |
+| due_date    | date | string | false    |
 
 */
 
@@ -172,6 +194,88 @@ export const useDeleteComment = () => {
         mutationFn: (id) => fromSupabase(supabase.from('comments').delete().eq('id', id)),
         onSuccess: () => {
             queryClient.invalidateQueries('comments');
+        },
+    });
+};
+
+// Hooks for projects table
+export const useProjects = () => useQuery({
+    queryKey: ['projects'],
+    queryFn: () => fromSupabase(supabase.from('projects').select('*')),
+});
+
+export const useProject = (id) => useQuery({
+    queryKey: ['projects', id],
+    queryFn: () => fromSupabase(supabase.from('projects').select('*').eq('id', id).single()),
+});
+
+export const useAddProject = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newProject) => fromSupabase(supabase.from('projects').insert([newProject])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('projects');
+        },
+    });
+};
+
+export const useUpdateProject = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedProject) => fromSupabase(supabase.from('projects').update(updatedProject).eq('id', updatedProject.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('projects');
+        },
+    });
+};
+
+export const useDeleteProject = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('projects').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('projects');
+        },
+    });
+};
+
+// Hooks for milestones table
+export const useMilestones = () => useQuery({
+    queryKey: ['milestones'],
+    queryFn: () => fromSupabase(supabase.from('milestones').select('*')),
+});
+
+export const useMilestone = (id) => useQuery({
+    queryKey: ['milestones', id],
+    queryFn: () => fromSupabase(supabase.from('milestones').select('*').eq('id', id).single()),
+});
+
+export const useAddMilestone = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newMilestone) => fromSupabase(supabase.from('milestones').insert([newMilestone])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('milestones');
+        },
+    });
+};
+
+export const useUpdateMilestone = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedMilestone) => fromSupabase(supabase.from('milestones').update(updatedMilestone).eq('id', updatedMilestone.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('milestones');
+        },
+    });
+};
+
+export const useDeleteMilestone = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('milestones').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('milestones');
         },
     });
 };
