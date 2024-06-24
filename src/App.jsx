@@ -11,6 +11,7 @@ import Register from "./pages/Register.jsx";
 import Profile from "./pages/Profile.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import FileManagement from "./pages/FileManagement.jsx";
+import Productivity from "./pages/Productivity.jsx";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route exact path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
         <Route exact path="/group-management" element={<GroupManagement />} />
         <Route exact path="/file-management" element={<FileManagement />} />
+        <Route exact path="/productivity" element={<Productivity />} />
       </Routes>
     </Router>
   );
