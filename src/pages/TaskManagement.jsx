@@ -108,14 +108,16 @@ const TaskManagement = () => {
       </VStack>
       <VStack spacing={4}>
         {tasks.map(task => (
-          <Box key={task.id} w="full" p={4} bg="gray.100" borderRadius="md">
+          <Box key={task.id} w="full" p={4} bg="gray.100" borderRadius="md" m={2} minW="250px">
             <Heading size="md">{task.title}</Heading>
             <Text>{task.description}</Text>
             <Text>Category: {task.category}</Text>
             <Text>Priority: {task.priority}</Text>
             <Text>Status: {task.status}</Text>
             <Text>Due Date: {task.due_date}</Text>
-            <VotingSystem taskId={task.id} />
+            <Box p={4} bg="gray.100" borderRadius="md" w="full" maxW="600px" mx="auto">
+              <VotingSystem taskId={task.id} />
+            </Box>
             <HStack spacing={2} mt={2}>
               <Button colorScheme="blue" onClick={() => handleEdit(task)}>Edit</Button>
               <Button colorScheme="red" onClick={() => handleDelete(task.id)}>Delete</Button>

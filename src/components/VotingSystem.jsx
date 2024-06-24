@@ -144,7 +144,7 @@ const VotingSystem = ({ taskId }) => {
   const averageRating = sliderVotes.filter(sliderVote => sliderVote.task_id === taskId).reduce((acc, sliderVote) => acc + sliderVote.rating, 0) / sliderVotes.length || 0;
 
   return (
-    <Box p={4} bg="gray.100" borderRadius="md">
+    <Box p={4} bg="gray.100" borderRadius="md" w="full" maxW="600px" mx="auto">
       <VStack spacing={4}>
         <HStack spacing={4}>
           <Button leftIcon={<FaThumbsUp />} colorScheme="green" onClick={() => handleVote(1)} isDisabled={userVote?.vote === 1}>

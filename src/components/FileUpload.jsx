@@ -35,9 +35,9 @@ const FileUpload = ({ projectId }) => {
   const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   return (
-    <Box p={4} bg="gray.100" borderRadius="md">
+    <Box p={4} bg="gray.100" borderRadius="md" w="full" maxW="600px" mx="auto">
       <VStack spacing={4}>
-        <Box {...getRootProps()} p={4} bg="white" border="2px dashed gray" borderRadius="md" cursor="pointer">
+        <Box {...getRootProps()} p={4} bg="white" border="2px dashed gray" borderRadius="md" cursor="pointer" w="full">
           <input {...getInputProps()} />
           <Text>Drag & drop files here, or click to select files</Text>
         </Box>
