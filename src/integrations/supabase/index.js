@@ -1,3 +1,4 @@
+```javascript
 import { createClient } from '@supabase/supabase-js';
 import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -107,6 +108,20 @@ const fromSupabase = async (query) => {
 | group_id    | int8 | number | true     |  // foreign key to groups
 | user_id     | int8 | number | true     |  // foreign key to users
 | role        | text | string | true     |  // 'admin' or 'member'
+
+### tags
+
+| name | type | format | required |
+|------|------|--------|----------|
+| id   | int8 | number | true     |
+| name | text | string | true     |
+
+### categories
+
+| name | type | format | required |
+|------|------|--------|----------|
+| id   | int8 | number | true     |
+| name | text | string | true     |
 
 */
 
@@ -500,3 +515,12 @@ export const useUserScores = () => useQuery({
     queryKey: ['user_scores'],
     queryFn: () => fromSupabase(supabase.from('user_scores').select('*')),
 });
+
+// Hooks for tags table
+export const useTags = () => useQuery({
+    queryKey: ['tags'],
+    queryFn: () => fromSupabase(supabase.from('tags').select('*')),
+});
+
+export const useTag = (id) => useQuery({
+    queryKey: ['tags
