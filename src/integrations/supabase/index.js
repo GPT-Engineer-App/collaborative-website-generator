@@ -1,3 +1,4 @@
+```javascript
 import { createClient } from '@supabase/supabase-js';
 import { useQuery, useMutation, useQueryClient, QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -500,3 +501,20 @@ export const useUserScores = () => useQuery({
     queryKey: ['user_scores'],
     queryFn: () => fromSupabase(supabase.from('user_scores').select('*')),
 });
+
+// Hooks for tags table
+export const useTags = () => useQuery({
+    queryKey: ['tags'],
+    queryFn: () => fromSupabase(supabase.from('tags').select('*')),
+});
+
+export const useTag = (id) => useQuery({
+    queryKey: ['tags', id],
+    queryFn: () => fromSupabase(supabase.from('tags').select('*').eq('id', id).single()),
+});
+
+export const useAddTag = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newTag) => fromSupabase(supabase.from('tags').insert([newTag])),
+        onSuccess: () => {

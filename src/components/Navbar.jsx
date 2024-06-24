@@ -34,6 +34,9 @@ const Navbar = () => {
           <NavLink to="/session-management">
             <Link color="white">Session Management</Link>
           </NavLink>
+          <NavLink to="/tag-management">
+            <Link color="white">Tag Management</Link>
+          </NavLink>
         </HStack>
       </Flex>
     </Box>
