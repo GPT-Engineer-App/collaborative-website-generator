@@ -91,6 +91,23 @@ const fromSupabase = async (query) => {
 | task_id     | int8 | number | true     |  // foreign key to tasks
 | rating      | int4 | number | true     |  // rating from 1 to 5
 
+### groups
+
+| name        | type | format | required |
+|-------------|------|--------|----------|
+| id          | int8 | number | true     |
+| name        | text | string | true     |
+| description | text | string | false    |
+
+### group_members
+
+| name        | type | format | required |
+|-------------|------|--------|----------|
+| id          | int8 | number | true     |
+| group_id    | int8 | number | true     |  // foreign key to groups
+| user_id     | int8 | number | true     |  // foreign key to users
+| role        | text | string | true     |  // 'admin' or 'member'
+
 */
 
 // Hooks for tasks table
@@ -376,6 +393,88 @@ export const useDeleteSliderVote = () => {
         mutationFn: (id) => fromSupabase(supabase.from('slider_votes').delete().eq('id', id)),
         onSuccess: () => {
             queryClient.invalidateQueries('slider_votes');
+        },
+    });
+};
+
+// Hooks for groups table
+export const useGroups = () => useQuery({
+    queryKey: ['groups'],
+    queryFn: () => fromSupabase(supabase.from('groups').select('*')),
+});
+
+export const useGroup = (id) => useQuery({
+    queryKey: ['groups', id],
+    queryFn: () => fromSupabase(supabase.from('groups').select('*').eq('id', id).single()),
+});
+
+export const useAddGroup = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newGroup) => fromSupabase(supabase.from('groups').insert([newGroup])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('groups');
+        },
+    });
+};
+
+export const useUpdateGroup = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedGroup) => fromSupabase(supabase.from('groups').update(updatedGroup).eq('id', updatedGroup.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('groups');
+        },
+    });
+};
+
+export const useDeleteGroup = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('groups').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('groups');
+        },
+    });
+};
+
+// Hooks for group_members table
+export const useGroupMembers = () => useQuery({
+    queryKey: ['group_members'],
+    queryFn: () => fromSupabase(supabase.from('group_members').select('*')),
+});
+
+export const useGroupMember = (id) => useQuery({
+    queryKey: ['group_members', id],
+    queryFn: () => fromSupabase(supabase.from('group_members').select('*').eq('id', id).single()),
+});
+
+export const useAddGroupMember = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newGroupMember) => fromSupabase(supabase.from('group_members').insert([newGroupMember])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('group_members');
+        },
+    });
+};
+
+export const useUpdateGroupMember = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedGroupMember) => fromSupabase(supabase.from('group_members').update(updatedGroupMember).eq('id', updatedGroupMember.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('group_members');
+        },
+    });
+};
+
+export const useDeleteGroupMember = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('group_members').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('group_members');
         },
     });
 };
