@@ -73,6 +73,24 @@ const fromSupabase = async (query) => {
 | description | text | string | false    |
 | due_date    | date | string | false    |
 
+### voting
+
+| name        | type | format | required |
+|-------------|------|--------|----------|
+| id          | int8 | number | true     |
+| user_id     | int8 | number | true     |  // foreign key to users
+| task_id     | int8 | number | true     |  // foreign key to tasks
+| vote        | int4 | number | true     |  // 1 for upvote, -1 for downvote
+
+### slider_votes
+
+| name        | type | format | required |
+|-------------|------|--------|----------|
+| id          | int8 | number | true     |
+| user_id     | int8 | number | true     |  // foreign key to users
+| task_id     | int8 | number | true     |  // foreign key to tasks
+| rating      | int4 | number | true     |  // rating from 1 to 5
+
 */
 
 // Hooks for tasks table
@@ -276,6 +294,88 @@ export const useDeleteMilestone = () => {
         mutationFn: (id) => fromSupabase(supabase.from('milestones').delete().eq('id', id)),
         onSuccess: () => {
             queryClient.invalidateQueries('milestones');
+        },
+    });
+};
+
+// Hooks for voting table
+export const useVotes = () => useQuery({
+    queryKey: ['voting'],
+    queryFn: () => fromSupabase(supabase.from('voting').select('*')),
+});
+
+export const useVote = (id) => useQuery({
+    queryKey: ['voting', id],
+    queryFn: () => fromSupabase(supabase.from('voting').select('*').eq('id', id).single()),
+});
+
+export const useAddVote = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newVote) => fromSupabase(supabase.from('voting').insert([newVote])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('voting');
+        },
+    });
+};
+
+export const useUpdateVote = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedVote) => fromSupabase(supabase.from('voting').update(updatedVote).eq('id', updatedVote.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('voting');
+        },
+    });
+};
+
+export const useDeleteVote = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('voting').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('voting');
+        },
+    });
+};
+
+// Hooks for slider_votes table
+export const useSliderVotes = () => useQuery({
+    queryKey: ['slider_votes'],
+    queryFn: () => fromSupabase(supabase.from('slider_votes').select('*')),
+});
+
+export const useSliderVote = (id) => useQuery({
+    queryKey: ['slider_votes', id],
+    queryFn: () => fromSupabase(supabase.from('slider_votes').select('*').eq('id', id).single()),
+});
+
+export const useAddSliderVote = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newSliderVote) => fromSupabase(supabase.from('slider_votes').insert([newSliderVote])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('slider_votes');
+        },
+    });
+};
+
+export const useUpdateSliderVote = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (updatedSliderVote) => fromSupabase(supabase.from('slider_votes').update(updatedSliderVote).eq('id', updatedSliderVote.id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('slider_votes');
+        },
+    });
+};
+
+export const useDeleteSliderVote = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (id) => fromSupabase(supabase.from('slider_votes').delete().eq('id', id)),
+        onSuccess: () => {
+            queryClient.invalidateQueries('slider_votes');
         },
     });
 };
