@@ -27,13 +27,13 @@ const Navbar = () => {
             <NavLink to="/dashboard">
               <Link color="white">Dashboard</Link>
             </NavLink>
-            <NavLink to="/projects">
+            <NavLink to="/project-management">
               <Link color="white">Projects</Link>
             </NavLink>
-            <NavLink to="/tasks">
+            <NavLink to="/task-management">
               <Link color="white">Tasks</Link>
             </NavLink>
-            <NavLink to="/teams">
+            <NavLink to="/group-management">
               <Link color="white">Teams</Link>
             </NavLink>
             <NavLink to="/settings">
@@ -49,13 +49,13 @@ const Navbar = () => {
             <NavLink to="/dashboard">
               <Link color="white">Dashboard</Link>
             </NavLink>
-            <NavLink to="/projects">
+            <NavLink to="/project-management">
               <Link color="white">Projects</Link>
             </NavLink>
-            <NavLink to="/tasks">
+            <NavLink to="/task-management">
               <Link color="white">Tasks</Link>
             </NavLink>
-            <NavLink to="/teams">
+            <NavLink to="/group-management">
               <Link color="white">Teams</Link>
             </NavLink>
             <NavLink to="/settings">
