@@ -4,7 +4,7 @@ import { useGroups, useAddGroup, useUpdateGroup, useDeleteGroup, useGroupMembers
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const groupSchema = yup.object().shape({
   name: yup.string().required('Name is required'),
