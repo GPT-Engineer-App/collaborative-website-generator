@@ -478,3 +478,19 @@ export const useDeleteGroupMember = () => {
         },
     });
 };
+
+// Hooks for files table
+export const useFiles = (projectId) => useQuery({
+    queryKey: ['files', projectId],
+    queryFn: () => fromSupabase(supabase.from('files').select('*').eq('project_id', projectId)),
+});
+
+export const useAddFile = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: (newFile) => fromSupabase(supabase.from('files').insert([newFile])),
+        onSuccess: () => {
+            queryClient.invalidateQueries('files');
+        },
+    });
+};
