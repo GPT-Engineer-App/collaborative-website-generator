@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { useState } from 'react';
+import VotingSystem from "../components/VotingSystem.jsx";
 
 const schema = yup.object().shape({
   title: yup.string().required('Title is required'),
@@ -114,6 +115,7 @@ const TaskManagement = () => {
             <Text>Priority: {task.priority}</Text>
             <Text>Status: {task.status}</Text>
             <Text>Due Date: {task.due_date}</Text>
+            <VotingSystem taskId={task.id} />
             <HStack spacing={2} mt={2}>
               <Button colorScheme="blue" onClick={() => handleEdit(task)}>Edit</Button>
               <Button colorScheme="red" onClick={() => handleDelete(task.id)}>Delete</Button>
