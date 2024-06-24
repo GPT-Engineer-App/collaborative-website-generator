@@ -5,6 +5,7 @@ import * as yup from 'yup';
 import { Box, Button, FormControl, FormLabel, Input, FormErrorMessage, VStack, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import { useSupabaseAuth, SupabaseAuthUI } from '../integrations/supabase/auth.jsx';
+import { supabase } from '../integrations/supabase/index.js';
 
 const schema = yup.object().shape({
   email: yup.string().email('Invalid email').required('Email is required'),
