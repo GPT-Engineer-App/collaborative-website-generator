@@ -28,6 +28,9 @@ const Navbar = () => {
           <NavLink to="/file-management">
             <Link color="white">File Management</Link>
           </NavLink>
+          <NavLink to="/productivity">
+            <Link color="white">Productivity</Link>
+          </NavLink>
         </HStack>
       </Flex>
     </Box>

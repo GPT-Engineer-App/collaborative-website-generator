@@ -494,3 +494,9 @@ export const useAddFile = () => {
         },
     });
 };
+
+// Hooks for user_scores table
+export const useUserScores = () => useQuery({
+    queryKey: ['user_scores'],
+    queryFn: () => fromSupabase(supabase.from('user_scores').select('*')),
+});
