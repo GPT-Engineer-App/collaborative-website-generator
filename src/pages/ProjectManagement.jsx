@@ -1,6 +1,6 @@
 import { Box, Heading, Text, VStack, HStack, Button, Flex, IconButton, FormControl, FormLabel, Input, FormErrorMessage, Select, Textarea } from "@chakra-ui/react";
 import { FaCog, FaBell, FaUserCircle } from "react-icons/fa";
-import { useProjects, useAddProject, useUpdateProject, useDeleteProject, useMilestones, useAddMilestone, useTasks, useUpdateTask } from "../integrations/supabase/index.js";
+import { useProjects, useAddProject, useUpdateProject, useDeleteProject, useMilestones, useAddMilestone, useTasks, useUpdateTask, useTags, useCategories } from "../integrations/supabase/index.js";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -27,6 +27,8 @@ const ProjectManagement = () => {
   const { data: projects, isLoading: projectsLoading, error: projectsError } = useProjects();
   const { data: milestones, isLoading: milestonesLoading, error: milestonesError } = useMilestones();
   const { data: tasks, isLoading: tasksLoading, error: tasksError } = useTasks();
+  const { data: tags, isLoading: tagsLoading, error: tagsError } = useTags();
+  const { data: categories, isLoading: categoriesLoading, error: categoriesError } = useCategories();
   const addProject = useAddProject();
   const updateProject = useUpdateProject();
   const deleteProject = useDeleteProject();
@@ -80,11 +82,11 @@ const ProjectManagement = () => {
     await updateTask.mutateAsync({ id: taskId, project_id: projectId });
   };
 
-  if (projectsLoading || milestonesLoading || tasksLoading) {
+  if (projectsLoading || milestonesLoading || tasksLoading || tagsLoading || categoriesLoading) {
     return <div>Loading...</div>;
   }
 
-  if (projectsError || milestonesError || tasksError) {
+  if (projectsError || milestonesError || tasksError || tagsError || categoriesError) {
     return <div>Error loading data</div>;
   }
 
@@ -165,6 +167,8 @@ const ProjectManagement = () => {
             <Text>Start Date: {new Date(project.start_date).toLocaleDateString()}</Text>
             <Text>End Date: {new Date(project.end_date).toLocaleDateString()}</Text>
             <Text>Status: {project.status}</Text>
+            <Text>Tags: {project.tags.map(tag => tag.name).join(', ')}</Text>
+            <Text>Categories: {project.categories.map(category => category.name).join(', ')}</Text>
             <HStack spacing={2} mt={2}>
               <Button colorScheme="blue" onClick={() => handleEditProject(project)}>Edit</Button>
               <Button colorScheme="red" onClick={() => handleDeleteProject(project.id)}>Delete</Button>

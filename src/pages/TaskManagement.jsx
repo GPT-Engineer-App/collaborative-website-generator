@@ -1,6 +1,6 @@
 import { Box, Heading, Text, VStack, HStack, Button, Flex, IconButton, Select, Input, Textarea, FormControl, FormLabel, FormErrorMessage } from "@chakra-ui/react";
 import { FaCog, FaBell, FaUserCircle } from "react-icons/fa";
-import { useTasks, useAddTask, useUpdateTask, useDeleteTask, useTaskTags, useAddTaskTag, useComments, useAddComment } from "../integrations/supabase/index.js";
+import { useTasks, useAddTask, useUpdateTask, useDeleteTask, useTaskTags, useAddTaskTag, useComments, useAddComment, useTags, useCategories } from "../integrations/supabase/index.js";
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
@@ -20,6 +20,8 @@ const TaskManagement = () => {
   const { data: tasks, isLoading: tasksLoading, error: tasksError } = useTasks();
   const { data: taskTags, isLoading: taskTagsLoading, error: taskTagsError } = useTaskTags();
   const { data: comments, isLoading: commentsLoading, error: commentsError } = useComments();
+  const { data: tags, isLoading: tagsLoading, error: tagsError } = useTags();
+  const { data: categories, isLoading: categoriesLoading, error: categoriesError } = useCategories();
   const addTask = useAddTask();
   const updateTask = useUpdateTask();
   const deleteTask = useDeleteTask();
@@ -47,11 +49,11 @@ const TaskManagement = () => {
     await deleteTask.mutateAsync(id);
   };
 
-  if (tasksLoading || taskTagsLoading || commentsLoading) {
+  if (tasksLoading || taskTagsLoading || commentsLoading || tagsLoading || categoriesLoading) {
     return <div>Loading...</div>;
   }
 
-  if (tasksError || taskTagsError || commentsError) {
+  if (tasksError || taskTagsError || commentsError || tagsError || categoriesError) {
     return <div>Error loading data</div>;
   }
 
@@ -115,6 +117,8 @@ const TaskManagement = () => {
             <Text>Priority: {task.priority}</Text>
             <Text>Status: {task.status}</Text>
             <Text>Due Date: {task.due_date}</Text>
+            <Text>Tags: {task.tags.map(tag => tag.name).join(', ')}</Text>
+            <Text>Categories: {task.categories.map(category => category.name).join(', ')}</Text>
             <VotingSystem taskId={task.id} />
             <HStack spacing={2} mt={2}>
               <Button colorScheme="blue" onClick={() => handleEdit(task)}>Edit</Button>

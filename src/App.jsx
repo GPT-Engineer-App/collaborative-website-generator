@@ -13,6 +13,7 @@ import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import FileManagement from "./pages/FileManagement.jsx";
 import Productivity from "./pages/Productivity.jsx";
 import SessionManagement from "./pages/SessionManagement.jsx";
+import TagCategoryManagement from "./components/TagCategoryManagement.jsx";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/file-management" element={<FileManagement />} />
         <Route exact path="/productivity" element={<Productivity />} />
         <Route exact path="/session-management" element={<ProtectedRoute><SessionManagement /></ProtectedRoute>} />
+        <Route exact path="/tag-category-management" element={<ProtectedRoute><TagCategoryManagement /></ProtectedRoute>} />
       </Routes>
     </Router>
   );

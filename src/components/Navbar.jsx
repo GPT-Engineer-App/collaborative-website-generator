@@ -1,5 +1,4 @@
-import { Box, Flex, HStack, Link, Button } from "@chakra-ui/react";
-import { useSupabaseAuth } from "../integrations/supabase/auth.jsx";
+import { Box, Flex, HStack, Link } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
@@ -33,6 +32,9 @@ const Navbar = () => {
           </NavLink>
           <NavLink to="/session-management">
             <Link color="white">Session Management</Link>
+          </NavLink>
+          <NavLink to="/tag-category-management">
+            <Link color="white">Tag & Category Management</Link>
           </NavLink>
         </HStack>
       </Flex>
