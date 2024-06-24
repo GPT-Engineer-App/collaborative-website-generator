@@ -10,29 +10,20 @@ const Navbar = () => {
           <NavLink to="/">
             <Link color="white">Home</Link>
           </NavLink>
-          <NavLink to="/project-overview">
-            <Link color="white">Project Overview</Link>
-          </NavLink>
-          <NavLink to="/task-management">
-            <Link color="white">Task Management</Link>
-          </NavLink>
           <NavLink to="/dashboard">
             <Link color="white">Dashboard</Link>
           </NavLink>
-          <NavLink to="/project-management">
-            <Link color="white">Project Management</Link>
+          <NavLink to="/projects">
+            <Link color="white">Projects</Link>
           </NavLink>
-          <NavLink to="/group-management">
-            <Link color="white">Group Management</Link>
+          <NavLink to="/tasks">
+            <Link color="white">Tasks</Link>
           </NavLink>
-          <NavLink to="/file-management">
-            <Link color="white">File Management</Link>
+          <NavLink to="/teams">
+            <Link color="white">Teams</Link>
           </NavLink>
-          <NavLink to="/productivity">
-            <Link color="white">Productivity</Link>
-          </NavLink>
-          <NavLink to="/session-management">
-            <Link color="white">Session Management</Link>
+          <NavLink to="/settings">
+            <Link color="white">Settings</Link>
           </NavLink>
         </HStack>
       </Flex>
